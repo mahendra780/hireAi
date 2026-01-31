@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>HireAi | Interview</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <%- include("../partials/navbar") %>
+  <div class="container">
+    <h2>Mock Interview</h2>
+
+    <!-- Role & Level -->
+    <div class="meta">
+      <div><strong>Role:</strong>
+        <%= role %>
+      </div>
+      <div><strong>Level:</strong>
+        <%= level %>
+      </div>
+    </div>
+
+    <!-- ✅ DATA PASSED SAFELY (SAME LOGIC) -->
+    <div id="interview-data" data-role="<%= role %>" data-level="<%= level %>"></div>
+
+    <hr />
+
+    <!-- Question -->
+    <p id="question">Loading question...</p>
+
+    <!-- Answer -->
+    <textarea id="answer" rows="6" placeholder="Write your answer here..."></textarea>
+
+    <!-- Submit -->
+    <button id="submitBtn" class="btn">Submit Answer</button>
+
+  </div>
+
+  <!-- Frontend logic -->
+  <script src="/js/interview.js"></script>
+  <footer class="footer">
+    <p>
+      © <%= new Date().getFullYear() %> HireAi ·
+        AI-powered mock interviews
+    </p>
+  </footer>
+
+</body>
+
+</html>

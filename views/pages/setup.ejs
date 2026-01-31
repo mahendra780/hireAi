@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>HireAi | Setup</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <%- include("../partials/navbar") %>
+  <div class="container">
+    <h2>Mock Interview Setup</h2>
+    <p style="color:#555; margin-bottom: 25px;">
+      Select your role and experience level to start the mock interview.
+    </p>
+
+    <form action="/interview" method="GET">
+      <label for="role">Role</label>
+      <select name="role" id="role" required>
+        <option value="">Select role</option>
+        <option value="Python">Python</option>
+        <option value="Backend">Backend</option>
+        <option value="Frontend">Frontend</option>
+      </select>
+
+      <label for="level">Experience Level</label>
+      <select name="level" id="level" required>
+        <option value="">Select level</option>
+        <option value="Fresher">Fresher</option>
+        <option value="Intermediate">Intermediate</option>
+      </select>
+
+      <button type="submit">Start Interview</button>
+    </form>
+  </div>
+  <footer class="footer">
+    <p>
+      © <%= new Date().getFullYear() %> HireAi ·
+        Practice smarter interviews
+    </p>
+  </footer>
+
+</body>
+
+</html>

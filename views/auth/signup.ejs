@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up | HireAi</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include("../partials/navbar") %>
+  <div class="auth-container">
+    <h2>Create Account</h2>
+    <p class="auth-subtext">
+      Sign up to start practicing mock interviews with AI.
+    </p>
+
+    <form method="POST" action="/signup">
+      <label>Username</label>
+      <input type="text" name="username" required />
+
+      <label>Email</label>
+      <input type="email" name="email" required />
+
+      <label>Password</label>
+      <input type="password" name="password" required />
+
+      <button type="submit" class="btn">Create Account</button>
+
+    </form>
+
+    <div class="auth-footer">
+      Already have an account?
+      <a href="/login">Login</a>
+    </div>
+  </div>
+</body>
+</html>

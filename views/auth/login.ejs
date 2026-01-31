@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login | HireAi</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include("../partials/navbar") %>
+  <div class="auth-container">
+    <h2>Welcome Back</h2>
+    <p class="auth-subtext">
+      Login to continue your mock interview practice.
+    </p>
+
+    <form method="POST" action="/login">
+      <label>Email</label>
+      <input type="email" name="email" required />
+
+      <label>Password</label>
+      <input type="password" name="password" required />
+
+      <button type="submit" class="btn">Login</button>
+
+    </form>
+
+    <div class="auth-footer">
+      Don’t have an account?
+      <a href="/signup">Create one</a>
+    </div>
+  </div>
+</body>
+</html>

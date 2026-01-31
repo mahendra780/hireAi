@@ -1,0 +1,26 @@
+<nav class="navbar">
+  <!-- LEFT SIDE -->
+  <div>
+    <a href="/" class="nav-brand">HireAi</a>
+    <a href="/" class="nav-link <%= currentPath === '/' ? 'active' : '' %>">Home</a>
+
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div>
+    <% if (!currentUser) { %>
+      <!-- Logged OUT -->
+      <a href="/login" class="nav-link">Login</a>
+      <a href="/signup" class="nav-link">Signup</a>
+    <% } else { %>
+      <!-- Logged IN -->
+      <span class="nav-username">
+        Hi, <%= currentUser.username %>
+      </span>
+
+      <form action="/logout" method="POST" style="display:inline;">
+        <button type="submit" class="btn-outline">Logout</button>
+      </form>
+    <% } %>
+  </div>
+</nav>

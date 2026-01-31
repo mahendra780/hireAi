@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>HireAi | Summary</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <%- include("../partials/navbar") %>
+  <div class="container">
+    <h2>Interview Summary</h2>
+
+    <!-- Meta info -->
+    <div class="meta">
+      <div><strong>Role:</strong>
+        <%= interview.role %>
+      </div>
+      <div><strong>Level:</strong>
+        <%= interview.level %>
+      </div>
+    </div>
+
+    <!-- Score badge logic (SAME DATA, UI ONLY) -->
+    <% let scoreClass="bad" ; if (interview.score>= 7) scoreClass = "good";
+      else if (interview.score >= 4) scoreClass = "avg";
+      %>
+
+      <p>
+        <strong>Score:</strong>
+        <span class="score <%= scoreClass %>">
+          <%= interview.score %> / 10
+        </span>
+      </p>
+
+      <hr />
+
+      <h4>Question</h4>
+      <p>
+        <%= interview.question %>
+      </p>
+
+      <h4>Your Answer</h4>
+      <p>
+        <%= interview.answer %>
+      </p>
+
+      <h4>Feedback</h4>
+      <pre><%= interview.feedback %></pre>
+
+      <a href="/">Start New Interview</a>
+  </div>
+  <footer class="footer">
+    <p>
+      © <%= new Date().getFullYear() %> HireAi ·
+        <a href="/setup">Start another interview</a>
+    </p>
+  </footer>
+
+</body>
+
+</html>
