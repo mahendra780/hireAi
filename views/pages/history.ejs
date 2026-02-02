@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HireAi | Interview History</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <%- include("../partials/navbar") %>
+
+        <div class="container">
+            <h2>Interview History</h2>
+            <div style="margin-bottom: 20px; color: #555;">
+                <p>
+                    <strong>User:</strong>
+                    <%= user.username %>
+                        (<%= user.email %>)
+                </p>
+            </div>
+
+
+            <% if (interviews.length===0) { %>
+                <p>No interviews yet.</p>
+                <% } %>
+
+                    <% interviews.forEach(interview=> { %>
+                        <div style="margin-bottom:20px; padding-bottom:15px; border-bottom:1px solid #eee;">
+                            <p><strong>Role:</strong>
+                                <%= interview.role %>
+                            </p>
+                            <p><strong>Level:</strong>
+                                <%= interview.level %>
+                            </p>
+
+                            <p>
+                                <strong>Average Score:</strong>
+                                <span
+                                    class="score <%= interview.averageScore >= 7 ? 'good' : interview.averageScore >= 4 ? 'avg' : 'bad' %>">
+                                    <%= interview.averageScore %> / 10
+                                </span>
+                            </p>
+
+                            <p style="font-size:13px; color:#666;">
+                                <%= new Date(interview.createdAt).toLocaleString() %>
+                            </p>
+
+                            <a href="/summary/<%= interview._id %>" class="btn btn-outline">
+                                View Summary
+                            </a>
+                        </div>
+                        <% }) %>
+        </div>
+
+</body>
+
+</html>
