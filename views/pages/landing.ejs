@@ -1,97 +1,135 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>HireAI | AI Mock Interview Platform</title>
-  <link rel="stylesheet" href="/css/style.css">
-  <!-- <link rel="stylesheet" href="/css/home.css"> -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/output.css">
+  <style>
+    :root {
+      --primary: #F97316;
+      --secondary: #14B8A6;
+      --text-main: #1F2937;
+      --bg-neutral: #F5EDE6;
+      --surface: #FFFFFF;
+      --accent: #9CA3AF;
+    }
+
+    body {
+      background: var(--bg-neutral);
+      color: var(--text-main);
+    }
+
+    .landing-hero-bg {
+      background:
+        radial-gradient(circle at 12% 0%, rgba(20, 184, 166, 0.25) 0%, transparent 40%),
+        radial-gradient(circle at 88% 12%, rgba(249, 115, 22, 0.26) 0%, transparent 45%),
+        var(--bg-neutral);
+    }
+
+    .landing-card {
+      background: var(--surface);
+      border: 1px solid rgba(156, 163, 175, 0.45);
+      box-shadow: 0 12px 30px rgba(31, 41, 55, 0.08);
+    }
+
+    .btn-primary {
+      background: var(--primary) !important;
+      color: #fff !important;
+    }
+
+    .btn-primary:hover {
+      background: #ea580c !important;
+    }
+
+    .btn-secondary {
+      border-color: var(--accent) !important;
+      color: var(--text-main) !important;
+      background: var(--surface) !important;
+    }
+
+    .btn-secondary:hover {
+      background: #f3f4f6 !important;
+    }
+
+  </style>
 </head>
-
 <body>
-
   <%- include("../partials/navbar") %>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
-      <div class="hero-content">
-        <span class="badge">Free AI Practice</span>
-
-        <h1>
-          AI Powered <br> Mock Interviews
-        </h1>
-
-        <p>
-          Practice with an intelligent AI interviewer, get instant feedback,
-          and boost your confidence for every job interview.
-        </p>
-
-        <div class="hero-buttons">
-          <% if (!currentUser) { %>
-            <a href="/signup" class="btn-primary">Start Free</a>
+  <section class="landing-hero-bg border-b border-[#9CA3AF]/40">
+    <div class="app-shell py-12 sm:py-16 lg:py-20">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div>
+          <span class="inline-flex items-center rounded-full border border-[#14B8A6]/40 bg-white px-4 py-1 text-sm font-semibold text-[#0f766e]">Free AI Practice</span>
+          <h1 class="mt-5 text-4xl font-extrabold tracking-tight text-[#1F2937] sm:text-5xl">
+            AI Powered Mock Interviews That Build Real Confidence
+          </h1>
+          <p class="mt-5 max-w-xl text-base text-[#374151] sm:text-lg">
+            Practice with an intelligent interviewer, get instant feedback, and prepare with focused sessions tailored to your role.
+          </p>
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <% if (!currentUser) { %>
+              <a href="/signup" class="btn-primary">Start Free</a>
             <% } else { %>
               <a href="/setup" class="btn-primary">Continue Interview</a>
-              <% } %>
-
-                <a href="#features" class="btn-secondary">Explore Features</a>
+            <% } %>
+            <a href="#features" class="btn-secondary">Explore Features</a>
+          </div>
+          <div class="mt-6 flex flex-wrap items-center gap-5 text-sm text-[#4b5563]">
+            <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-[#14B8A6]"></span>Role-tailored prompts</span>
+            <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-[#F97316]"></span>Instant actionable feedback</span>
+          </div>
+        </div>
+        <div class="landing-card overflow-hidden rounded-3xl p-3 sm:p-4">
+          <img src="/images/landing.jpg" alt="HireAI landing preview" class="h-[260px] w-full rounded-2xl object-cover sm:h-[320px] lg:h-[380px]">
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
+  <section id="features" class="app-shell py-12 sm:py-16">
+    <h2 class="page-title text-center text-[#1F2937]">Why Choose HireAI?</h2>
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <article class="landing-card rounded-2xl p-6">
+        <h3 class="text-lg font-semibold text-[#1F2937]">Role-Based Questions</h3>
+        <p class="mt-2 text-sm text-[#4b5563]">Get interview questions tailored to your job role and level.</p>
+      </article>
+      <article class="landing-card rounded-2xl p-6">
+        <h3 class="text-lg font-semibold text-[#1F2937]">Instant AI Feedback</h3>
+        <p class="mt-2 text-sm text-[#4b5563]">Receive structured feedback, scoring, and improvement tips instantly.</p>
+      </article>
+      <article class="landing-card rounded-2xl p-6 sm:col-span-2 lg:col-span-1">
+        <h3 class="text-lg font-semibold text-[#1F2937]">Confidence Tracking</h3>
+        <p class="mt-2 text-sm text-[#4b5563]">Track your progress over time and practice smarter.</p>
+      </article>
+    </div>
+  </section>
 
-    <!-- FEATURES SECTION -->
-    <section id="features" class="features">
-      <h2>Why Choose HireAI?</h2>
-
-      <div class="feature-grid">
-        <div class="feature-card">
-          <h3>🎯 Role-Based Questions</h3>
-          <p>Get tailored interview questions based on your job role and level.</p>
+  <section class="border-y border-[#9CA3AF]/40 bg-white/80">
+    <div class="app-shell py-12 sm:py-16">
+      <h2 class="page-title text-center text-[#1F2937]">How It Works</h2>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="landing-card rounded-2xl p-6">
+          <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#14B8A6]/20 text-sm font-bold text-[#0f766e]">1</span>
+          <h3 class="mt-4 text-lg font-semibold text-[#1F2937]">Select Role</h3>
+          <p class="mt-2 text-sm text-[#4b5563]">Choose your target job and experience level.</p>
         </div>
-
-        <div class="feature-card">
-          <h3>⚡ Instant AI Feedback</h3>
-          <p>Receive structured feedback, scoring, and improvement tips instantly.</p>
+        <div class="landing-card rounded-2xl p-6">
+          <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#14B8A6]/20 text-sm font-bold text-[#0f766e]">2</span>
+          <h3 class="mt-4 text-lg font-semibold text-[#1F2937]">Answer Questions</h3>
+          <p class="mt-2 text-sm text-[#4b5563]">Respond to AI-generated interview questions.</p>
         </div>
-
-        <div class="feature-card">
-          <h3>📈 Confidence Boost</h3>
-          <p>Practice anytime and track your progress to improve consistently.</p>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- HOW IT WORKS -->
-    <section class="how">
-      <h2>How It Works</h2>
-
-      <div class="steps">
-        <div class="step">
-          <span>1</span>
-          <h4>Select Role</h4>
-          <p>Choose your target job and experience level.</p>
-        </div>
-
-        <div class="step">
-          <span>2</span>
-          <h4>Answer Questions</h4>
-          <p>Respond to AI-generated interview questions.</p>
-        </div>
-
-        <div class="step">
-          <span>3</span>
-          <h4>Get Feedback</h4>
-          <p>Receive score, strengths & improvement areas.</p>
+        <div class="landing-card rounded-2xl p-6 sm:col-span-2 lg:col-span-1">
+          <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#14B8A6]/20 text-sm font-bold text-[#0f766e]">3</span>
+          <h3 class="mt-4 text-lg font-semibold text-[#1F2937]">Get Feedback</h3>
+          <p class="mt-2 text-sm text-[#4b5563]">Review strengths and improvements after each answer.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-
-    <footer class="footer">
-      © <%= new Date().getFullYear() %> HireAI · Prepare Smarter
-    </footer>
-
+  <footer class="app-shell py-8 text-center text-sm text-[#6b7280]">
+    &copy; <%= new Date().getFullYear() %> HireAI | Prepare Smarter
+  </footer>
 </body>
-
 </html>

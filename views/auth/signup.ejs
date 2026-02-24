@@ -2,34 +2,38 @@
 <html>
 <head>
   <title>Sign Up | HireAI</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/output.css">
 </head>
 <body>
   <%- include("../partials/navbar") %>
-  <div class="auth-container">
-    <h2>Create Account</h2>
-    <p class="auth-subtext">
-      Sign up to start practicing mock interviews with AI.
-    </p>
 
-    <form method="POST" action="/signup">
-      <label>Username</label>
-      <input type="text" name="username" required />
+  <main class="app-shell py-8 sm:py-12">
+    <section class="card mx-auto max-w-xl p-6 sm:p-8">
+      <h1 class="page-title">Create Account</h1>
+      <p class="page-subtitle">Sign up to start practicing mock interviews with AI.</p>
 
-      <label>Email</label>
-      <input type="email" name="email" required />
+      <form method="POST" action="/signup" class="mt-6 space-y-5">
+        <div>
+          <label class="mb-2 block text-sm font-medium text-[#1F2937]">Username</label>
+          <input type="text" name="username" required class="input" />
+        </div>
+        <div>
+          <label class="mb-2 block text-sm font-medium text-[#1F2937]">Email</label>
+          <input type="email" name="email" required class="input" />
+        </div>
+        <div>
+          <label class="mb-2 block text-sm font-medium text-[#1F2937]">Password</label>
+          <input type="password" name="password" required class="input" />
+        </div>
+        <button type="submit" class="btn-primary w-full">Create Account</button>
+      </form>
 
-      <label>Password</label>
-      <input type="password" name="password" required />
-
-      <button type="submit" class="btn">Create Account</button>
-
-    </form>
-
-    <div class="auth-footer">
-      Already have an account?
-      <a href="/login">Login</a>
-    </div>
-  </div>
+      <p class="mt-5 text-center text-sm text-[#4B5563]">
+        Already have an account?
+        <a href="/login" class="font-semibold text-[#F97316] hover:text-[#EA580C]">Login</a>
+      </p>
+    </section>
+  </main>
 </body>
 </html>

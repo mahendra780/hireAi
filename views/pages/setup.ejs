@@ -1,66 +1,45 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>HireAi | Setup</title>
-  <link rel="stylesheet" href="/css/style.css">
-  <style>
-    .footer {
-      margin-top: 60px;
-      padding: 20px;
-      text-align: center;
-      font-size: 14px;
-      color: #666;
-    }
-
-    /* Make page take full height */
-    body {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Allow content area to expand */
-    .container {
-      flex: 1;
-    }
-  </style>
+  <title>HireAI | Setup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/output.css">
 </head>
-
 <body>
   <%- include("../partials/navbar") %>
-    <div class="container">
-      <h2>Mock Interview Setup</h2>
-      <p style="color:#555; margin-bottom: 25px;">
-        Select your role and experience level to start the mock interview.
-      </p>
 
-      <form action="/interview" method="GET">
-        <label for="role">Role</label>
-        <select name="role" id="role" required>
-          <option value="">Select role</option>
-          <option value="Python">Python</option>
-          <option value="Backend">Backend</option>
-          <option value="Frontend">Frontend</option>
-        </select>
+  <main class="app-shell py-8 sm:py-12">
+    <section class="card mx-auto max-w-2xl p-6 sm:p-8">
+      <h1 class="page-title">Mock Interview Setup</h1>
+      <p class="page-subtitle">Select your role and experience level to start.</p>
 
-        <label for="level">Experience Level</label>
-        <select name="level" id="level" required>
-          <option value="">Select level</option>
-          <option value="Fresher">Fresher</option>
-          <option value="Intermediate">Intermediate</option>
-        </select>
+      <form action="/interview" method="GET" class="mt-6 space-y-5">
+        <div>
+          <label for="role" class="mb-2 block text-sm font-medium text-[#1F2937]">Role</label>
+          <select name="role" id="role" required class="input">
+            <option value="">Select role</option>
+            <option value="Python">Python</option>
+            <option value="Backend">Backend</option>
+            <option value="Frontend">Frontend</option>
+          </select>
+        </div>
 
-        <button type="submit">Start Interview</button>
+        <div>
+          <label for="level" class="mb-2 block text-sm font-medium text-[#1F2937]">Experience Level</label>
+          <select name="level" id="level" required class="input">
+            <option value="">Select level</option>
+            <option value="Fresher">Fresher</option>
+            <option value="Intermediate">Intermediate</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-primary w-full">Start Interview</button>
       </form>
-    </div>
-    <footer class="footer">
-      <p>
-        © <%= new Date().getFullYear() %> HireAI ·
-          Practice smarter interviews
-      </p>
-    </footer>
+    </section>
+  </main>
 
+  <footer class="app-shell py-8 text-center text-sm text-[#6B7280]">
+    &copy; <%= new Date().getFullYear() %> HireAI · Practice smarter interviews
+  </footer>
 </body>
-
 </html>

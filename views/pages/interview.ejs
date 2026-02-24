@@ -1,53 +1,42 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>HireAi | Interview</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <title>HireAI | Interview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/output.css">
 </head>
-
 <body>
   <%- include("../partials/navbar") %>
-  <div class="container">
-    <h2>Mock Interview</h2>
 
-    <!-- Role & Level -->
-    <div class="meta">
-      <div><strong>Role:</strong>
-        <%= role %>
+  <main class="app-shell py-8 sm:py-12">
+    <section class="card mx-auto max-w-3xl p-6 sm:p-8">
+      <h1 class="page-title">Mock Interview</h1>
+
+      <div class="mt-5 grid grid-cols-2 gap-3 rounded-xl border border-[#9CA3AF]/40 bg-white p-4 text-sm">
+        <p class="rounded-lg border border-[#9CA3AF]/30 bg-[#F9FAFB] px-3 py-2"><span class="font-semibold">Role:</span> <%= role %></p>
+        <p class="rounded-lg border border-[#9CA3AF]/30 bg-[#F9FAFB] px-3 py-2"><span class="font-semibold">Level:</span> <%= level %></p>
       </div>
-      <div><strong>Level:</strong>
-        <%= level %>
+
+      <div id="interview-data" data-role="<%= role %>" data-level="<%= level %>"></div>
+
+      <div class="mt-6 border-t border-[#9CA3AF]/40 pt-6">
+        <p id="progress" class="text-sm font-medium text-[#6B7280]"></p>
+        <p id="question" class="mt-2 text-lg font-medium text-[#1F2937]">Loading question...</p>
       </div>
-    </div>
 
-    <!--  DATA PASSED SAFELY  -->
-    <div id="interview-data" data-role="<%= role %>" data-level="<%= level %>"></div>
+      <div class="mt-6">
+        <label for="answer" class="mb-2 block text-sm font-medium text-[#1F2937]">Your Answer</label>
+        <textarea id="answer" rows="6" class="input resize-y" placeholder="Write your answer here..."></textarea>
+      </div>
 
-    <hr />
+      <button id="submitBtn" class="btn-primary mt-5 w-full sm:w-auto">Submit Answer</button>
+    </section>
+  </main>
 
-    <!-- Question -->
-    <p id="progress" style="font-weight: 600; color: #555;"></p>
-
-    <p id="question">Loading question...</p>
-
-    <!-- Answer -->
-    <textarea id="answer" rows="6" placeholder="Write your answer here..."></textarea>
-
-    <!-- Submit -->
-    <button id="submitBtn" class="btn">Submit Answer</button>
-
-  </div>
-
-  <!-- Frontend logic -->
-  <script src="/js/interview.js"></script>
-  <footer class="footer">
-    <p>
-      © <%= new Date().getFullYear() %> HireAI ·
-        AI-powered mock interviews
-    </p>
+  <footer class="app-shell py-8 text-center text-sm text-[#6B7280]">
+    &copy; <%= new Date().getFullYear() %> HireAI · AI-powered mock interviews
   </footer>
 
+  <script src="/js/interview.js"></script>
 </body>
-
 </html>

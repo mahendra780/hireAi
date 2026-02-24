@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: #F97316;
+    --secondary: #14B8A6;
+    --text-main: #1F2937;
+    --bg-neutral: #F5EDE6;
+    --surface: #FFFFFF;
+    --accent: #9CA3AF;
+  }
+
+  body {
+    @apply min-h-screen bg-[#F5EDE6] text-[#1F2937];
+  }
+}
+
+@layer components {
+  .app-shell {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .card {
+    @apply rounded-2xl border border-[#9CA3AF]/40 bg-white shadow-sm;
+  }
+
+  .page-title {
+    @apply text-2xl font-bold tracking-tight text-[#1F2937] sm:text-3xl;
+  }
+
+  .page-subtitle {
+    @apply mt-2 text-sm text-[#4B5563] sm:text-base;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-[#9CA3AF] bg-white px-4 py-2.5 text-sm text-[#1F2937] outline-none ring-[#14B8A6] transition placeholder:text-[#6B7280] focus:border-[#14B8A6] focus:ring-2;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl bg-[#F97316] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#EA580C] focus:outline-none focus:ring-2 focus:ring-[#F97316] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-xl border border-[#9CA3AF] bg-white px-4 py-2.5 text-sm font-semibold text-[#1F2937] transition hover:bg-[#F9FAFB] focus:outline-none focus:ring-2 focus:ring-[#14B8A6] focus:ring-offset-2;
+  }
+}

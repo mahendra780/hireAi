@@ -1,33 +1,45 @@
-<nav class="navbar">
-  <a href="/" class="nav-logo">HireAI</a>
+<nav class="sticky top-0 z-50 border-b border-[#9CA3AF]/40 bg-[#F5EDE6]/95 backdrop-blur">
+  <div class="app-shell flex h-16 items-center justify-between">
+    <a href="/" class="text-xl font-extrabold tracking-tight text-[#1F2937]">
+      Hire<span class="text-[#F97316]">AI</span>
+    </a>
 
-  <div class="nav-toggle" onclick="toggleMenu()">☰</div>
+    <button
+      id="navToggle"
+      type="button"
+      class="inline-flex items-center justify-center rounded-lg border border-[#9CA3AF] px-3 py-2 text-sm font-medium text-[#1F2937] md:hidden"
+      aria-controls="navLinks"
+      aria-expanded="false"
+    >
+      Menu
+    </button>
 
-  <div class="nav-links" id="navLinks">
-    <% if (!currentUser) { %>
-      <!-- Logged OUT -->
-      <a href="/login" class="nav-link">Login</a>
-      <a href="/signup" class="nav-link">Signup</a>
-    <% } else { %>
-      <a href="/" class="nav-link">Home</a>
-      <a href="/setup" class="nav-link">Take Interview</a>
-      <a href="/history" class="nav-link">History</a>
-      <a href="/analytics" class="nav-link">Analytics</a>
-
-      <!-- Logged IN -->
-      <span class="nav-username">
-        Hi, <%= currentUser.username %>
-      </span>
-
-      <form action="/logout" method="POST" style="display:inline;">
-        <button type="submit" class="btn-outline">Logout</button>
-      </form>
-    <% } %>
+    <div id="navLinks" class="absolute left-4 right-4 top-16 hidden rounded-xl border border-[#9CA3AF]/40 bg-white p-3 shadow-lg md:static md:flex md:items-center md:gap-6 md:border-0 md:bg-transparent md:p-0 md:shadow-none">
+      <% if (!currentUser) { %>
+        <a href="/login" class="block rounded-lg px-3 py-2 text-sm font-medium text-[#1F2937] hover:bg-[#F3F4F6] md:p-0 md:hover:bg-transparent md:hover:text-[#14B8A6]">Login</a>
+        <a href="/signup" class="mt-2 block rounded-lg bg-[#F97316] px-3 py-2 text-center text-sm font-semibold text-white hover:bg-[#EA580C] md:mt-0 md:px-4">Signup</a>
+      <% } else { %>
+        <a href="/" class="block rounded-lg px-3 py-2 text-sm font-medium text-[#1F2937] hover:bg-[#F3F4F6] md:p-0 md:hover:bg-transparent md:hover:text-[#14B8A6]">Home</a>
+        <a href="/setup" class="block rounded-lg px-3 py-2 text-sm font-medium text-[#1F2937] hover:bg-[#F3F4F6] md:p-0 md:hover:bg-transparent md:hover:text-[#14B8A6]">Take Interview</a>
+        <a href="/history" class="block rounded-lg px-3 py-2 text-sm font-medium text-[#1F2937] hover:bg-[#F3F4F6] md:p-0 md:hover:bg-transparent md:hover:text-[#14B8A6]">History</a>
+        <a href="/analytics" class="block rounded-lg px-3 py-2 text-sm font-medium text-[#1F2937] hover:bg-[#F3F4F6] md:p-0 md:hover:bg-transparent md:hover:text-[#14B8A6]">Analytics</a>
+        <span class="block rounded-lg px-3 py-2 text-sm text-[#6B7280] md:p-0">Hi, <%= currentUser.username %></span>
+        <form action="/logout" method="POST" class="mt-2 md:mt-0">
+          <button type="submit" class="btn-secondary w-full md:w-auto">Logout</button>
+        </form>
+      <% } %>
+    </div>
   </div>
 </nav>
 
 <script>
-  function toggleMenu() {
-    document.getElementById("navLinks").classList.toggle("active");
+  const navToggle = document.getElementById("navToggle");
+  const navLinks = document.getElementById("navLinks");
+
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", () => {
+      const isHidden = navLinks.classList.toggle("hidden");
+      navToggle.setAttribute("aria-expanded", String(!isHidden));
+    });
   }
 </script>
