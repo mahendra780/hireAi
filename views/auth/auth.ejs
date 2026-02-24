@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Auth | HireAI</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include("../partials/navbar") %>
+
+  <div class="auth-container">
+
+    <!-- Toggle Buttons -->
+    <div class="auth-toggle">
+      <button id="loginToggle" class="toggle-btn active">Login</button>
+      <button id="signupToggle" class="toggle-btn">Sign Up</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div id="loginForm">
+      <h2>Welcome Back</h2>
+      <p class="auth-subtext">
+        Login to continue your mock interview practice.
+      </p>
+
+      <form method="POST" action="/login">
+        <label>Email</label>
+        <input type="email" name="email" required />
+
+        <label>Password</label>
+        <input type="password" name="password" required />
+
+        <button type="submit" class="btn">Login</button>
+      </form>
+    </div>
+
+    <!-- SIGNUP FORM -->
+    <div id="signupForm" style="display: none;">
+      <h2>Create Account</h2>
+      <p class="auth-subtext">
+        Sign up to start practicing mock interviews with AI.
+      </p>
+
+      <form method="POST" action="/signup">
+        <label>Username</label>
+        <input type="text" name="username" required />
+
+        <label>Email</label>
+        <input type="email" name="email" required />
+
+        <label>Password</label>
+        <input type="password" name="password" required />
+
+        <button type="submit" class="btn">Create Account</button>
+      </form>
+    </div>
+
+  </div>
+
+  <script>
+    const loginToggle = document.getElementById("loginToggle");
+    const signupToggle = document.getElementById("signupToggle");
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+
+    loginToggle.addEventListener("click", () => {
+      loginForm.style.display = "block";
+      signupForm.style.display = "none";
+      loginToggle.classList.add("active");
+      signupToggle.classList.remove("active");
+    });
+
+    signupToggle.addEventListener("click", () => {
+      loginForm.style.display = "none";
+      signupForm.style.display = "block";
+      signupToggle.classList.add("active");
+      loginToggle.classList.remove("active");
+    });
+  </script>
+
+</body>
+</html>

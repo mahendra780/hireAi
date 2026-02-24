@@ -1,18 +1,16 @@
 <nav class="navbar">
-  <!-- LEFT SIDE -->
-  <div>
-    <a href="/" class="nav-brand">HireAi</a>
-    <a href="/" class="nav-link <%= currentPath === '/' ? 'active' : '' %>">Home</a>
+  <a href="/" class="nav-logo">HireAI</a>
 
-  </div>
+  <div class="nav-toggle" onclick="toggleMenu()">☰</div>
 
-  <!-- RIGHT SIDE -->
-  <div>
+  <div class="nav-links" id="navLinks">
     <% if (!currentUser) { %>
       <!-- Logged OUT -->
       <a href="/login" class="nav-link">Login</a>
       <a href="/signup" class="nav-link">Signup</a>
     <% } else { %>
+      <a href="/" class="nav-link">Home</a>
+      <a href="/setup" class="nav-link">Take Interview</a>
       <a href="/history" class="nav-link">History</a>
       <a href="/analytics" class="nav-link">Analytics</a>
 
@@ -27,3 +25,9 @@
     <% } %>
   </div>
 </nav>
+
+<script>
+  function toggleMenu() {
+    document.getElementById("navLinks").classList.toggle("active");
+  }
+</script>
