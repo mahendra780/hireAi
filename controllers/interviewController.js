@@ -84,3 +84,14 @@ module.exports.evaluate = async (req, res) => {
     redirectUrl: `/summary/${interview._id}`
   });
 };
+
+module.exports.deleteInterview = async (req, res) => {
+  const { id } = req.params;
+
+  await Interview.deleteOne({
+    _id: id,
+    user: req.session.userId
+  });
+
+  return res.redirect("/history");
+};

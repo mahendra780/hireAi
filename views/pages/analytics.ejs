@@ -56,11 +56,22 @@
       const labels = <%- labels %>;
       const scores = <%- scores %>;
       const ctx = document.getElementById("progressChart");
+      const isMobileView = window.matchMedia("(max-width: 640px)").matches;
+      const displayLabels = isMobileView
+        ? labels.map((label) => {
+            const parsedDate = new Date(label);
+            if (Number.isNaN(parsedDate.getTime())) return label;
+            return parsedDate.toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "short"
+            });
+          })
+        : labels;
 
       new Chart(ctx, {
         type: "line",
         data: {
-          labels: labels,
+          labels: displayLabels,
           datasets: [{
             data: scores,
             borderColor: "#14B8A6",
@@ -85,6 +96,10 @@
               }
             },
             x: {
+              ticks: {
+                maxRotation: 0,
+                minRotation: 0
+              },
               title: {
                 display: true,
                 text: "Interview Date"

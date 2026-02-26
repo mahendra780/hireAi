@@ -41,7 +41,14 @@
               <%= new Date(interview.createdAt).toLocaleString() %>
             </p>
 
-            <a href="/summary/<%= interview._id %>" class="btn-secondary mt-4">View Summary</a>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <a href="/summary/<%= interview._id %>" class="btn-secondary">View Summary</a>
+              <form action="/interview/<%= interview._id %>/delete" method="POST" onsubmit="return confirm('Delete this interview permanently?');">
+                <button type="submit" class="btn-secondary">
+                  Delete
+                </button>
+              </form>
+            </div>
           </article>
         <% }) %>
       </div>
