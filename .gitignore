@@ -1,2 +1,5 @@
 .env
+ HEAD
 node_modules/
+/node_modules
+fb1d364 (feature:Voice based)

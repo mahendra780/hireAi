@@ -4,32 +4,164 @@
   <title>HireAI | Interview</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/output.css">
+  <style>
+    /* Toggle switch — self-contained, no Tailwind transform deps */
+    .voice-toggle-track {
+      display: inline-flex;
+      align-items: center;
+      width: 44px;
+      height: 24px;
+      border-radius: 9999px;
+      background: #D1D5DB;
+      cursor: pointer;
+      transition: background 0.3s;
+      border: none;
+      padding: 0;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .voice-toggle-track.active {
+      background: #6366F1;
+    }
+    .voice-toggle-dot {
+      position: absolute;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      border-radius: 9999px;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      transition: left 0.3s;
+    }
+    .voice-toggle-track.active .voice-toggle-dot {
+      left: 23px;
+    }
+
+    /* Mic button pulse animation */
+    @keyframes mic-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+      50%       { box-shadow: 0 0 0 8px rgba(239,68,68,0); }
+    }
+    .mic-recording {
+      animation: mic-pulse 1.2s ease-in-out infinite;
+    }
+  </style>
 </head>
 <body>
   <%- include("../partials/navbar") %>
 
   <main class="app-shell py-8 sm:py-12">
     <section class="card mx-auto max-w-3xl p-6 sm:p-8">
-      <h1 class="page-title">Mock Interview</h1>
 
+      <!-- Header: Title + Mode Toggle -->
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <h1 class="page-title">Mock Interview</h1>
+
+        <!-- Toggle pill -->
+        <div style="display:flex;align-items:center;gap:8px;background:#F9FAFB;border:1px solid #E5E7EB;border-radius:12px;padding:8px 14px;">
+          <span style="font-size:16px;">⌨️</span>
+          <button
+            id="modeToggle"
+            class="voice-toggle-track"
+            onclick="toggleMode()"
+            aria-label="Toggle voice mode"
+          >
+            <span class="voice-toggle-dot"></span>
+          </button>
+          <span style="font-size:16px;">🎙️</span>
+          <span id="modeLabel" style="font-size:13px;font-weight:600;color:#6B7280;margin-left:4px;">Text Mode</span>
+        </div>
+      </div>
+
+      <!-- Role / Level -->
       <div class="mt-5 grid grid-cols-2 gap-3 rounded-xl border border-[#9CA3AF]/40 bg-white p-4 text-sm">
-        <p class="rounded-lg border border-[#9CA3AF]/30 bg-[#F9FAFB] px-3 py-2"><span class="font-semibold">Role:</span> <%= role %></p>
-        <p class="rounded-lg border border-[#9CA3AF]/30 bg-[#F9FAFB] px-3 py-2"><span class="font-semibold">Level:</span> <%= level %></p>
+        <p class="rounded-lg border border-[#9CA3AF]/30 bg-[#F9FAFB] px-3 py-2">
+          <span class="font-semibold">Role:</span> <%= role %>
+        </p>
+        <p class="rounded-lg border border-[#9CA3AF]/30 bg-[#F9FAFB] px-3 py-2">
+          <span class="font-semibold">Level:</span> <%= level %>
+        </p>
       </div>
 
       <div id="interview-data" data-role="<%= role %>" data-level="<%= level %>"></div>
 
+      <!-- Question -->
       <div class="mt-6 border-t border-[#9CA3AF]/40 pt-6">
         <p id="progress" class="text-sm font-medium text-[#6B7280]"></p>
-        <p id="question" class="mt-2 text-lg font-medium text-[#1F2937]">Loading question...</p>
+
+        <div class="mt-2" style="display:flex;align-items:flex-start;gap:12px;">
+          <p id="question" class="flex-1 text-lg font-medium text-[#1F2937]">Loading question...</p>
+
+          <!-- 🔊 Re-read button — voice mode only -->
+          <button
+            id="speakBtn"
+            onclick="speakQuestion()"
+            title="Read question aloud again"
+            style="display:none;flex-shrink:0;border:1px solid #A5B4FC;background:#EEF2FF;color:#6366F1;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background 0.2s,color 0.2s;"
+            onmouseover="this.style.background='#6366F1';this.style.color='#fff';"
+            onmouseout="this.style.background='#EEF2FF';this.style.color='#6366F1';"
+          >
+            🔊 Read
+          </button>
+        </div>
+
+        <!-- Status badge — voice mode only -->
+        <div id="voiceStatus" style="display:none;margin-top:10px;">
+          <span id="voiceStatusBadge" style="display:inline-flex;align-items:center;gap:6px;background:#FEF3C7;color:#92400E;border-radius:9999px;padding:4px 12px;font-size:12px;font-weight:600;">
+            <span id="statusDot" style="width:8px;height:8px;border-radius:50%;background:#F59E0B;display:inline-block;"></span>
+            <span id="statusText">Ready</span>
+          </span>
+        </div>
       </div>
 
+      <!-- Answer -->
       <div class="mt-6">
-        <label for="answer" class="mb-2 block text-sm font-medium text-[#1F2937]">Your Answer</label>
-        <textarea id="answer" rows="6" class="input resize-y" placeholder="Write your answer here..."></textarea>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <label for="answer" class="block text-sm font-medium text-[#1F2937]">Your Answer</label>
+          <span id="voiceHint" style="display:none;font-size:12px;color:#9CA3AF;">Speak or type below</span>
+        </div>
+        <textarea
+          id="answer"
+          rows="6"
+          class="input resize-y"
+          placeholder="Write your answer here..."
+        ></textarea>
       </div>
 
-      <button id="submitBtn" class="btn-primary mt-5 w-full sm:w-auto">Submit Answer</button>
+      <!-- Voice Controls — voice mode only -->
+      <div id="voiceControls" style="display:none;margin-top:16px;">
+        <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
+
+          <!-- Mic button -->
+          <button
+            id="micBtn"
+            onclick="toggleMic()"
+            style="display:inline-flex;align-items:center;gap:8px;border:2px solid #6366F1;background:#fff;color:#6366F1;border-radius:12px;padding:10px 20px;font-size:14px;font-weight:600;cursor:pointer;transition:background 0.2s,color 0.2s;"
+          >
+            <span id="micIcon">🎙️</span>
+            <span id="micLabel">Start Recording</span>
+          </button>
+
+          <!-- Clear button -->
+          <button
+            onclick="clearVoiceAnswer()"
+            style="border:1px solid #E5E7EB;background:#fff;color:#6B7280;border-radius:12px;padding:10px 16px;font-size:14px;font-weight:500;cursor:pointer;transition:background 0.2s;"
+            onmouseover="this.style.background='#F9FAFB';"
+            onmouseout="this.style.background='#fff';"
+          >
+            🗑️ Clear
+          </button>
+        </div>
+
+        <p style="margin-top:8px;font-size:12px;color:#9CA3AF;">
+          💡 Click <strong>Start Recording</strong>, speak your answer, then click <strong>Stop Recording</strong>. You can also type or edit the transcribed text.
+        </p>
+
+        <!-- Browser warning — injected by voice.js if needed -->
+        <div id="browserWarning" style="display:none;margin-top:10px;background:#FEF3C7;color:#92400E;border-radius:8px;padding:8px 14px;font-size:12px;"></div>
+      </div>
+
+      <button id="submitBtn" class="btn-primary mt-6 w-full sm:w-auto">Submit Answer</button>
     </section>
   </main>
 
@@ -38,5 +170,6 @@
   </footer>
 
   <script src="/js/interview.js"></script>
+  <script src="/js/voice.js"></script>
 </body>
 </html>
